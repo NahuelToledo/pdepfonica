@@ -3,21 +3,29 @@ import Data.Char
 type NumeroTelefonico = String
 type Saldo = Float
 type Habilitado = Bool
-data Cliente = UnCliente NumeroTelefonico Saldo Habilitado deriving (Show, Eq)
+data Cliente = UnCliente  {
+    numeroTelefonico :: NumeroTelefonico,
+    saldo :: Saldo,
+    habilitado :: Habilitado 
+} deriving (Show, Eq)
 
 alf :: Cliente
 alf = UnCliente "66660000" 5 True
 debi :: Cliente
-debi = UnCliente "77770000" (-20) True
+debi = UnCliente {
+    numeroTelefonico = "77770000",
+    habilitado = True,
+    saldo = (-20)
+}
 
-numeroTelefonico :: Cliente -> NumeroTelefonico
-numeroTelefonico (UnCliente numero _ _) = numero
+-- numeroTelefonico :: Cliente -> NumeroTelefonico
+-- numeroTelefonico (UnCliente numero _ _) = numero
 
-saldo :: Cliente -> Saldo
-saldo (UnCliente _ saldo _) = saldo
+-- saldo :: Cliente -> Saldo
+-- saldo (UnCliente _ saldo _) = saldo
 
-habilitado :: Cliente -> Habilitado
-habilitado (UnCliente _ _ habil) = habil
+-- habilitado :: Cliente -> Habilitado
+-- habilitado (UnCliente _ _ habil) = habil
 
 esNuevo :: Cliente -> Bool
 esNuevo = (== '7') . head . numeroTelefonico
@@ -40,8 +48,6 @@ esFinde _ = False
 
 
 disminuirSaldo :: Cliente -> Saldo -> Cliente
--- disminuirSaldo cliente saldoADisminuir =
---     (numeroTelefonico cliente, saldo cliente - saldoADisminuir)
 disminuirSaldo (UnCliente numero saldo habil) saldoADisminuir =
     UnCliente numero (saldo - saldoADisminuir) habil
 
@@ -50,8 +56,8 @@ aumentarSaldo (UnCliente numero saldo habil) saldoAAumentar =
     UnCliente numero (saldo + saldoAAumentar) habil
 
 bloquear :: Cliente -> Cliente
-bloquear (UnCliente numero saldo _) = UnCliente numero saldo False
-
+-- bloquear (UnCliente numero saldo _) = UnCliente numero saldo False
+bloquear cliente = cliente { habilitado = False }
 
 
 cargarSaldo :: Cliente -> Saldo -> Dia -> Cliente
