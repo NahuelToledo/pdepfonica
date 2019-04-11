@@ -22,3 +22,12 @@ esMoroso :: Cliente -> Bool
 esMoroso = esNegativo . saldo
 
 esNegativo = (<0)
+
+
+disminuirSaldo :: Cliente -> Saldo -> Cliente
+-- disminuirSaldo cliente saldoADisminuir =
+--     (numeroTelefonico cliente, saldo cliente - saldoADisminuir)
+
+disminuirSaldo (numero, saldo) saldoADisminuir =
+    (numero, saldo - saldoADisminuir)
+    
